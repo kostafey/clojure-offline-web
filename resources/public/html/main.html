@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, 
+                                   width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="keywords" content="clojure offline">
+
+    <link href="/css/modern.css" rel="stylesheet">
+    <link href="/css/modern-responsive.css" rel="stylesheet">
+    <link href="/css/site.css" rel="stylesheet" type="text/css">
+    <link href="/css/prettify.css" rel="stylesheet" type="text/css">
+
+    <script src="/js/ga.js" async="" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/jquery-1.js"></script>
+    <script type="text/javascript" src="/js/jquery_002.js"></script>
+    <script type="text/javascript" src="/js/moment.js"></script>
+    <script type="text/javascript" src="/js/moment_langs.js"></script>
+
+    <script type="text/javascript" src="/js/dropdown.js"></script>
+    <script type="text/javascript" src="/js/accordion.js"></script>
+    <script type="text/javascript" src="/js/buttonset.js"></script>
+    <script type="text/javascript" src="/js/carousel.js"></script>
+    <script type="text/javascript" src="/js/input-control.js"></script>
+    <script type="text/javascript" src="/js/pagecontrol.js"></script>
+    <script type="text/javascript" src="/js/rating.js"></script>
+    <script type="text/javascript" src="/js/slider.js"></script>
+    <script type="text/javascript" src="/js/tile-slider.js"></script>
+    <script type="text/javascript" src="/js/tile-drag.js"></script>
+    <script type="text/javascript" src="/js/calendar.js"></script>
+
+    <title>Clojure offline - throw your modem pipboy</title>
+  </head>
+  <body class="metrouicss" onload="prettyPrint()">
+
+
+    <script type="text/javascript">
+      // This function is used to dynamically create a form and post it
+      // to the url '/article/delete/:id'.
+      //
+      function deleteArticle(id)
+      {
+      var form = document.createElement("form");
+      form.setAttribute("method", "POST");
+      form.setAttribute("action", "/article/delete/"+id);
+      document.body.appendChild(form);
+      form.submit();
+      }
+    </script>
+
+    <div class="page">
+      <div class="nav-bar">
+
+        <div class="nav-bar-inner padding10">
+          <span class="pull-menu"></span>
+
+          <a href="/"><span class="element brand">
+              Clojure offline
+          </span></a>
+
+          <div class="divider"></div>
+
+          <ul class="menu">
+            <li><a href="/articles">Home</a></li>
+            <li><a href="/article/new">Create article</a></li>
+            <li><a href="http://prose.io/">http://prose.io/</a></li>
+            <li><a href="https://bitbucket.org/kostafey/kostafeys-emacs-confik/src/default/.emacs.d/solutions/clojure-offline.el?at=default">
+                elisp version</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="page-region-content">
+        <div  id="article-grid" class="grid" style="padding-top: 15px;">
+
+          <!-- Everything inside "article-grid" will be deleted! -->
+
+          <div class="row" id="article-row">
+            <div class="span12">
+              <div class="hero-unit">
+                <h2></h2>
+                <span>
+
+                  <input type="text" size="80" placeholder='lein dependency, e.g. [[leiningen-core "2.1.3"]]'/>
+                  <a href="#" class="button bg-color-green fg-color-white">Find</a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+</body></html>
