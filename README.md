@@ -1,8 +1,9 @@
 # Clojure-offline - разрешение зависимостей проекта вручную.
 
-Пример задеплоен здесь: https://clojureoffline-kostafey.rhcloud.com
+Приложение задеплоено здесь: https://clojureoffline-kostafey.rhcloud.com
 
-Никакого логина не требуется. Реализованы операции CRUD для объекта article.
+Пример строки артефактов, для которых ищутся зависимости:
+[[org.clojure/clojure "1.5.1"] [compojure "1.1.5"] [me.raynes/laser "1.1.1"]]
 
 ## Running
 
