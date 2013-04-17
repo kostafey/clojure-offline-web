@@ -14,9 +14,7 @@
 (defn show-artifacts-tree [artifact]
   (l/document main-html
               (l/id= "atrifacts-script")
-              ;; (l/content
-              ;;  (artifact-script-frag artifact))
-              (l/content (clj-off-get-script artifact))))
+              (l/content (l/unescaped (clj-off-get-script artifact)))))
 
 (defn show-clojure-offline []
   (l/document main-html))
