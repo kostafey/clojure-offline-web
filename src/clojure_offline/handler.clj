@@ -6,69 +6,28 @@
             [clojure-offline.view :as view]
             [ring.util.response :as resp]
             [noir.util.middleware :as noir]
-            [noir.session :as session]
-            ))
-
-
-(defn pint [s-int]
-  (Integer/parseInt s-int))
-
+            [noir.session :as session]))
 
 (defn show-clojure-offline []
   (view/show-clojure-offline))
 
-;; (defn show-article [id]
-;;   (view/show-article (model/find-article (pint id))))
-
-
-
-;; (defn edit-article [id]
-;;   (view/edit-article (model/find-article (pint id))))
-
-
-;; (defn delete-article [id]
-;;   (model/delete-article (pint id))
-;;   (resp/redirect "/articles"))
-
+(defn find-artifacts [artifact]
+  ;; (str artifact)
+  
+  (view/show-artifacts-tree artifact)
+  ;; (resp/redirect "/")
+  )
 
 ;; (defn update-article [id header content]
 ;;   (let [article {:id (pint id), :header header, :content content}]
 ;;     (model/update-article article)
 ;;     (view/show-article article)))
 
-
-;; (defn show-new-article []
-;;   (view/show-new-article))
-
-;; (defn create-article [article]
-;;   (model/create-article article)
-;;   (resp/redirect "/articles"))
-
-
 (defroutes app-routes
   
-  (GET "/" [] (resp/redirect "/articles"))
+  (GET "/" [] (show-clojure-offline))
   
-  ;; Show articles list
-  (GET "/articles" [] (show-clojure-offline))
-
-  ;; ;; Show form for a new article
-  ;; (GET "/article/new" [] (show-new-article))
-
-  ;; ;; Create new article
-  ;; (POST "/article/create" req (create-article (:params req)))
-
-  ;; ;; Show article details
-  ;; (GET "/article/:id" [id] (show-article id))
-
-  ;; ;; Show form for editting article
-  ;; (GET "/article/edit/:id" [id] (edit-article id))
-
-  ;; ;; Update article
-  ;; (POST "/article/update/:id" [id header content] (update-article id header content))
-
-  ;; ;; Delete article
-  ;; (POST "/article/delete/:id" [id] (delete-article id))
+  (POST "/find-artifacts" [artifact] (find-artifacts artifact))
 
   (route/resources "/") 
   (route/not-found "Not Found"))

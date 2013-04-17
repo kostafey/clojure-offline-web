@@ -1,6 +1,6 @@
-# Пример простого блога на Clojure
+# Clojure-offline - разрешение зависимостей проекта вручную.
 
-Пример задеплоен здесь: http://helloworld-writing.rhcloud.com/articles
+Пример задеплоен здесь: https://clojureoffline-kostafey.rhcloud.com
 
 Никакого логина не требуется. Реализованы операции CRUD для объекта article.
 

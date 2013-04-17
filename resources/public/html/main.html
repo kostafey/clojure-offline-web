@@ -38,11 +38,11 @@
       // This function is used to dynamically create a form and post it
       // to the url '/article/delete/:id'.
       //
-      function deleteArticle(id)
+      function findArtifacts()
       {
       var form = document.createElement("form");
       form.setAttribute("method", "POST");
-      form.setAttribute("action", "/article/delete/"+id);
+      form.setAttribute("action", "/find-artifacts");
       document.body.appendChild(form);
       form.submit();
       }
@@ -80,9 +80,12 @@
               <div class="hero-unit">
                 <h2></h2>
                 <span>
-
-                  <input type="text" size="80" placeholder='lein dependency, e.g. [[leiningen-core "2.1.3"]]'/>
-                  <a href="#" class="button bg-color-green fg-color-white">Find</a>
+                  <form action="/find-artifacts" method="POST">
+                    <input type="text" name="artifact" size="80" 
+                           placeholder='lein dependency, e.g. [[leiningen-core "2.1.3"]]'/>
+                    <input type="submit" class="button bg-color-green fg-color-white" value="Find">
+                  </form>
+                  <div id="atrifacts-script"></div>
                 </span>
               </div>
 
