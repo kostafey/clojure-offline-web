@@ -6,7 +6,8 @@
         clojure.pprint
         leiningen.core.classpath 
         leiningen.core.main
-        leiningen.core.project)
+        ;; leiningen.core.project
+        )
   (:import java.io.StringWriter))
 
 ;; default-repositories
@@ -16,10 +17,17 @@
     (pprint m w)
     (clojure.string/replace (.toString w) #"\n" "<br>") ))
 
-(defn get-hierarchy [artifacts-list] 
-    (dependency-hierarchy 
-          :dependencies
-          {:dependencies artifacts-list}))
+(defn get-hierarchy [artifacts-list]
+  (aether/dependency-hierarchy
+   artifacts-list
+   (aether/resolve-dependencies 
+    :coordinates artifacts-list
+    :repositories (merge cemerick.pomegranate.aether/maven-central 
+                         {"clojars" "http://clojars.org/repo"})))
+    ;; (dependency-hierarchy 
+    ;;       :dependencies
+    ;;       {:dependencies artifacts-list})
+    )
 
 (defn clj-off-get-script [artifacts-list]
   (let [dep (load-string (str "'" artifacts-list))]
