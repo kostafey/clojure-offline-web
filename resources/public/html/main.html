@@ -33,42 +33,17 @@
     <title>Clojure offline - throw your modem pipboy</title>
   </head>
   <body class="iron-body" onload="prettyPrint()">
-
-
-    <script type="text/javascript">
-      // This function is used to dynamically create a form and post it
-      // to the url '/article/delete/:id'.
-      //
-      function findArtifacts()
-      {
-      var form = document.createElement("form");
-      form.setAttribute("method", "POST");
-      form.setAttribute("action", "/find-artifacts");
-      document.body.appendChild(form);
-      form.submit();
-      }
-    </script>
-
-    <div class="page">
-      <div class="nav-bar">
-
-        <div class="nav-bar-inner padding10">
-          <span class="pull-menu"></span>
-
-          <a href="/"><span class="element brand">
-              Clojure offline
-          </span></a>
-
-          <div class="divider"></div>
-
-          <ul class="menu">
-            <li><a href="/">Home</a></li>
-            <!-- <li><a href="http://prose.io/">http://prose.io/</a></li> -->
-            <li><a href="https://bitbucket.org/kostafey/kostafeys-emacs-confik/src/default/.emacs.d/solutions/clojure-offline.el?at=default">
-                elisp version</a></li>
-          </ul>
-        </div>
-      </div>
+    
+    <div style="text-align: center; font-size: larger;">
+          <a href="/">
+              <h1>Clojure offline</h1> <!-- Home -->
+          </a>
+    </div>      
+    <div style="text-align: right; font-size: larger;">
+          <a href="https://bitbucket.org/kostafey/kostafeys-emacs-confik/src/default/.emacs.d/solutions/clojure-offline.el?at=default">
+            <img src="/images/emacs.ico" width="48" height="48"/><br>
+            elisp version</a>
+    </div>
 
       <div class="page-region-content">
         <div  id="article-grid" class="grid" style="padding-top: 15px;">
