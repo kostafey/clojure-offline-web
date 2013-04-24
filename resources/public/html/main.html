@@ -16,8 +16,29 @@
     <title>Clojure offline - throw your modem pipboy</title>
   </head>
   <body class="iron-body">
+    <div id="menu"></div>
+
     <script type="text/javascript" src="/js/main.js"></script>
     
+	<div id="menu">
+		<ul class="menu-holder">
+		   <li id="home-button" class="marea">
+				<h3>Home</h3></li>
+			<li id="gstarted-button" class="marea">
+				<h3>Quick Start</h3></li>
+			<li class="marea">
+				<h3 id="tutorial-button">Documentation/Demos</h3>
+				<ul class="sub">
+					<li class="mitem" id="doc-trans">Standard Transforms</li>
+					<li class="mitem" id="doc-events">Handling Events</li>
+					<li class="mitem" id="doc-effects">Effects and Timing</li>
+					<li class="mitem" id="doc-remote">Remote Templates/Snippets</li>
+					<li class="mitem" id="doc-extract">Getting Data <em>from</em> the DOM</li>
+				</ul></li>
+
+		</ul>
+	</div>
+
     <div style="text-align: center; font-size: larger;">
           <a href="/">
               <h1>Clojure offline</h1> <!-- Home -->
