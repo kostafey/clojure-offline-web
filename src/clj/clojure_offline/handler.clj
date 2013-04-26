@@ -25,10 +25,11 @@
 
 (defroutes app-routes
   
-  (GET "/" [] (resp/redirect "/html/main.html") ;(show-clojure-offline)
-       )
+  ;; (GET "/" [] (resp/redirect "/html/main.html") ;(show-clojure-offline)
+  ;;      )
   
-  ;; (POST "/find-artifacts" [artifact] (find-artifacts artifact))
+  (GET "/" []  (show-clojure-offline))                   
+  (POST "/find-artifacts" [artifact] (find-artifacts artifact))
 
   (route/resources "/") 
   (route/not-found "Not Found"))

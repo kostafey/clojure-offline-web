@@ -24,7 +24,7 @@
 
 (em/defaction setup-pane [width height]
   ["#home-button"] (em/listen :click home-page)
-  ["#gstarted-button"] (em/listen :click gstarted-page)
+  ["#gstarted-button"] (em/listen :click #(gstarted-page width height))
 
   ;; ["#doc-trans"] (em/listen :click doc-trans-page)
   ;; ["#doc-events"] (em/listen :click doc-events-page) 
@@ -43,23 +43,26 @@
           height (- (.-height size) 70)]
       (setup-pane width height)))
 
-(em/deftemplate home "main.html" [])
+;; (em/deftemplate home "main.html" [])
 
 (em/defaction home-page []
-  ["#content-pane"] (em/do->
-                     (em/content (home))
-                     (reset-scroll)))
+  ;; [".iron-body"] (reset-scroll)
+  ["#content-pane"] (em/chain
+                     (em/content "")
+                     (em/resize 0 0 500))
+  ["#searcher"] (em/fade-in 500 nil)  
+  )
 
 ;; (em/deftemplate gstarted "getting-started.html" [])
-(em/deftemplate gstarted "getting-started.html" [])
+(em/deftemplate gstarted "/html/getting-started.html" [])
 
-(em/defaction gstarted-page []
-  ;; ["body"] (em/resize width :curheight 500)
+(em/defaction gstarted-page [width height]  
   ["#content-pane"] (em/chain
                      (em/content (gstarted))
+                     (reset-scroll)
                      (em/resize 5 height 500)
                      (em/resize width :curheight 500))
-  )
+  ["#searcher"] (em/fade-out 500 nil))
 
 (em/defaction start []
   ;; (em/at js/document
