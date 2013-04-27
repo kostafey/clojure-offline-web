@@ -24,7 +24,9 @@
   (GET "/" []  (show-clojure-offline))                   
   (POST "/find-artifacts" [artifact] (find-artifacts artifact))
   
-  (GET "/help" [] (view/get-doc-html))
+  (GET "/doc-help" [] (view/get-doc-html))
+  (GET "/doc-resources" [] (view/get-doc-resources-html))
+  
   (route/resources "/") 
   (route/not-found "Not Found"))
 

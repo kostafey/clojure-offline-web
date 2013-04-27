@@ -24,18 +24,29 @@
 		<ul class="menu-holder">
 		   <li id="home-button" class="marea menu-wrapper">
 				<h3>Home</h3></li>
-			<li id="gstarted-button" class="marea menu-wrapper">
-				<h3>Quick Start</h3></li>
-			<li class="marea menu-wrapper">
-				<h3 id="tutorial-button">Documentation/Demos</h3>
+			<li id="doc-menu" class="marea menu-wrapper">
+				<h3>Documentation</h3>
+                <ul class="sub">
+				  <li class="mitem" id="gstarted-button">Quick Start</li>
+				  <li class="mitem" id="doc-events">Detail Description</li>
+				  <li class="mitem" id="doc-resources">Useful Resources</li>
+				</ul>
+            </li>
+			<li id="src-menu" class="marea menu-wrapper">
+				<h3 id="tutorial-button">Source</h3>
 				<ul class="sub">
-					<li class="mitem" id="doc-trans">Standard Transforms</li>
-					<li class="mitem" id="doc-events">Handling Events</li>
-					<li class="mitem" id="doc-effects">Effects and Timing</li>
-					<li class="mitem" id="doc-remote">Remote Templates/Snippets</li>
-					<li class="mitem" id="doc-extract">Getting Data <em>from</em> the DOM</li>
-				</ul></li>
-			
+					<li class="mitem" id="doc-trans">
+                      <a href="https://github.com/kostafey/clojure-offline">
+                        Clojure offline
+                      </a>
+                    </li>
+					<li class="mitem" id="doc-events">
+                      <a href="https://github.com/kostafey/kostafeys-emacs-confik/blob/master/.emacs.d/solutions/clojure-offline.el">
+                        Elisp&nbsp;Clojure&nbsp;offline&nbsp;
+                      </a>
+                    </li>
+				</ul>
+            </li>
 		</ul>
 	</div>
     
@@ -43,15 +54,6 @@
 	<div id="title">		
       <span id="caption" class="head2">Clojure offline</span>
 	</div>
-
-    <!-- <div style="text-align: right; font-size: larger;  -->
-    <!--             position:absolute; -->
-    <!--             right:5px; -->
-    <!--             top:5px;"> -->
-    <!--       <a href="https://bitbucket.org/kostafey/kostafeys-emacs-confik/src/default/.emacs.d/solutions/clojure-offline.el?at=default"> -->
-    <!--         <img src="/images/emacs.ico" width="16" height="16"/> -->
-    <!--         elisp version</a> -->
-    <!-- </div> -->
 
     <div class="page-region-content">
       <div  id="article-grid" class="grid" style="padding-top: 15px;">

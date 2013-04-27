@@ -6,11 +6,10 @@
 (declare home 
          home-page 
          gstarted-page
-         doc-trans-page
-         clone-for-demo
-         get-attr-demo
-         doc-templates-page
-         doc-from-page)
+         doc-resources
+         doc-resources-page)
+
+(em/deftemplate searcher "html/searcher.html" [])
 
 (defn scroll-to []
   (ef/chainable-standard
@@ -25,28 +24,22 @@
 (em/defaction setup-pane [width height]
   ["#home-button"] (em/listen :click home-page)
   ["#gstarted-button"] (em/listen :click #(gstarted-page width height))
-
-  ;; ["#doc-trans"] (em/listen :click doc-trans-page)
-  ;; ["#doc-events"] (em/listen :click doc-events-page) 
-  ;; ["#doc-effects"] (em/listen :click doc-effects-page)
-  ;; ["#doc-remote"] (em/listen :click doc-template-page)
-  ;; ["#doc-extract"] (em/listen :click doc-from-page)  
-
-  ;; ["#content-pane"] (em/chain
-  ;;                    (em/resize 5 height 500)
-  ;;                    (em/resize width :curheight 500))
+  ["#doc-resources"] (em/listen :click #(doc-resources-page width height))
   )
 
 (defn init-content-pane []
     (let [size (dom/getViewportSize)
           width (- (.-width size) 40)
           height (- (.-height size) 70)]
-      (setup-pane width height)))
+      (setup-pane (- width 10)  (- height 10))
+      ;; (setup-pane width height)
+      ))
 
 ;; (em/deftemplate home "main.html" [])
 
 (em/defaction home-page []
-  ;; [".iron-body"] (reset-scroll)
+  ["#searcher"] (em/content (searcher))
+  ["#caption"] (em/content "Clojure offline")
   ["#content-pane"] (em/chain
                      (em/content "")
                      (em/set-style :padding "0px")
@@ -54,17 +47,39 @@
   ["#searcher"] (em/fade-in 500 nil)
   ["#caption"] (em/fade-in 500 nil))
 
-;; (em/deftemplate gstarted "getting-started.html" [])
-(em/deftemplate gstarted "/help" [])
+(defn is-home []
+  (= (em/from (em/select ["#caption"]) 
+              (em/get-text)) ""))
+
+(em/deftemplate gstarted "/doc-help" [])
 
 (em/defaction gstarted-page [width height]  
-  ["#content-pane"] (em/chain                     
+  ["#content-pane"] (em/chain
                      (reset-scroll)
-                     (em/resize width height 500)
+                     (em/resize width height (if (is-home) 0 500))
                      (em/set-style :padding "10px")
                      (em/content (gstarted)))
-  ["#searcher"] (em/fade-out 500 nil)
-  ["#caption"] (em/fade-out 500 nil))
+  ["#searcher"] (em/chain
+                 (em/fade-out 500 nil)
+                 (em/content ""))
+  ["#caption"] (em/chain
+                (em/fade-out 500 nil)
+                (em/content "")))
+
+(em/deftemplate doc-resources "/doc-resources" [])
+
+(em/defaction doc-resources-page [width height]  
+  ["#content-pane"] (em/chain                    
+                     (reset-scroll)
+                     (em/resize width height (if (is-home) 0 500))
+                     (em/set-style :padding "10px")
+                     (em/content (doc-resources)))
+  ["#searcher"] (em/chain
+                 (em/fade-out 500 nil)
+                 (em/content ""))
+  ["#caption"] (em/chain
+                (em/fade-out 500 nil)
+                (em/content "")))
 
 (em/defaction start []
   ;; (em/at js/document
@@ -75,14 +90,28 @@
   [".marea"] (em/listen 
               :mouseenter
               #(em/at (.-currentTarget %)
-                      [".sub"] (em/resize :curwidth 145 500)
                       ["h3"] (em/do-> (em/add-class "blur-highlight"))))
   [".marea"] (em/listen 
               :mouseleave
               #(em/at (.-currentTarget %)
+                      ["h3"] (em/remove-class "blur-highlight")))
+  ["#doc-menu"] (em/listen 
+              :mouseenter
+              #(em/at (.-currentTarget %)
+                      [".sub"] (em/resize :curwidth 85 500)))
+  ["#doc-menu"] (em/listen 
+              :mouseleave
+              #(em/at (.-currentTarget %)
                       [".sub"] (em/resize :curwidth 0 500)
                       ["h3"] (em/remove-class "blur-highlight")))
-
+  ["#src-menu"] (em/listen 
+              :mouseenter
+              #(em/at (.-currentTarget %)
+                      [".sub"] (em/resize :curwidth 60 500)))
+  ["#src-menu"] (em/listen 
+              :mouseleave
+              #(em/at (.-currentTarget %)
+                      [".sub"] (em/resize :curwidth 0 500)))
   )
 
 (set! (.-onload js/window) ;start
