@@ -97,7 +97,7 @@ color: #333;
 }
 
 #menu {
-position:fixed;
+position:absolute;
 top: 15px;
 right: 80px;
 /* font-size: larger; */

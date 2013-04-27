@@ -51,10 +51,10 @@
                      (em/content "")
                      (em/resize 0 0 500))
   ["#searcher"] (em/fade-in 500 nil)  
-  )
+  ["#caption"] (em/fade-in 500 nil))
 
 ;; (em/deftemplate gstarted "getting-started.html" [])
-(em/deftemplate gstarted "/html/getting-started.html" [])
+(em/deftemplate gstarted "/help" [])
 
 (em/defaction gstarted-page [width height]  
   ["#content-pane"] (em/chain
@@ -62,7 +62,8 @@
                      (reset-scroll)
                      (em/resize 5 height 500)
                      (em/resize width :curheight 500))
-  ["#searcher"] (em/fade-out 500 nil))
+  ["#searcher"] (em/fade-out 500 nil)
+  ["#caption"] (em/fade-out 500 nil))
 
 (em/defaction start []
   ;; (em/at js/document

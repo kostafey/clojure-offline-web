@@ -12,16 +12,9 @@
   (view/show-clojure-offline))
 
 (defn find-artifacts [artifact]
-  ;; (str artifact)
-  
   (view/show-artifacts-tree artifact)
   ;; (resp/redirect "/")
   )
-
-;; (defn update-article [id header content]
-;;   (let [article {:id (pint id), :header header, :content content}]
-;;     (model/update-article article)
-;;     (view/show-article article)))
 
 (defroutes app-routes
   
@@ -30,7 +23,8 @@
   
   (GET "/" []  (show-clojure-offline))                   
   (POST "/find-artifacts" [artifact] (find-artifacts artifact))
-
+  
+  (GET "/help" [] (view/get-doc-html))
   (route/resources "/") 
   (route/not-found "Not Found"))
 

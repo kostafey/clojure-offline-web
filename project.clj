@@ -11,7 +11,8 @@
                  [mysql/mysql-connector-java "5.1.24"]
                  [korma "0.3.0-RC5"]                 
                  [com.cemerick/piggieback "0.0.4"]
-                 [leiningen-core "2.1.3"]]
+                 [leiningen-core "2.1.3"]
+                 [markdown-clj "0.9.20"]]
   :plugins [[lein-ring "0.8.3"]
             [lein-cljsbuild "0.3.0"]]
   :ring {:handler clojure-offline.handler/app}
