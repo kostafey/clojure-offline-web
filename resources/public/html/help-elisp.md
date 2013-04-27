@@ -48,28 +48,25 @@ Select (mark) :dependencies vector in the defproject expression of the
                 [lib-noir "0.4.9"]]#
 ```
 
-Copy them to the search input field and press `SEARCH`.
+Run M-x clojure-offline-create-script RET RET
 
 WARNING!
 
 There is no guarantee that the file is located in the printed path.
-E.g. https://clojars.org/repo/org/clojure/clojure/1.5.1/clojure-1.5.1.jar is
+E.g. https://clojars.org/repo/org/clojure/clojure/1.5.1/clojure-1.5.1.jaris
 a wrong path since clojure-1.5.1.jar is not hosted in the clojars.org
 (yet). So, you should find it manually. But if the jar is hosted in the
 clojars.org, the printed url is likely correct.
 
-Download files from a list of probable locations of the all found 
-dependenses. Obviously, it should be run on the computer with internet.
-
-Run `Install list` section on the target (probably offline) computer from the
-folder, where all listed *.jar and *.pom files is located. The %HOME% string
-should be replaced with the real home path.
-
 Repeat this for :plugins and :dev :dependencies sections.
 
-## 4. Correct errors
+## 4. Create *.pom files
 
-The elisp version of the clojure offline is required here.
+Create *.pom files in all apropriate .m2 subfolders (like in the point 2).
+
+Try to run M-x nrepl-jack-in RET
+
+## 5. Correct errors
 
 The problems and ideas to solve them during installations of the 
 [lein-ring "0.8.3"] plugin (as an example) are described below:
@@ -104,12 +101,8 @@ This could be due to a typo in :dependencies or network issues.
 ```
 
 Again:
-
-```
 (clojure-offline-create-script ["org.clojure:tools.nrepl:pom:0.2.1"
                         "clojure-complete:clojure-complete:pom:0.2.2"])
-```
-
 
 Don't forget to create *.pom files every time!
 
@@ -132,47 +125,37 @@ installed) and `org.clojure/data.xml' (wich is not installed yet in this
 example).
 
 To see the full list of the dependences you can use 
-https://clojureoffline-kostafey.rhcloud.com.
+`https://clojureoffline-kostafey.rhcloud.com.
 
 BTW, if the `lein-ring's *.pom file were available and correct (not empty) in
 the maven cashed directory (.m2) you will see the following error insted of
 the previous:
 
-```
-Could not transfer artifact org.clojure:data.xml:pom:0.0.6 from/to central
-(http://repo1.maven.org/maven2/): repo1.maven.org
-This could be due to a typo in :dependencies or network issues.
-```
+| Could not transfer artifact org.clojure:data.xml:pom:0.0.6 from/to central
+| (http://repo1.maven.org/maven2/): repo1.maven.org
+| This could be due to a typo in :dependencies or network issues.
 
 In the case where all jar dependences is resolved the following problem
 occurs:
 
-```
-Could not locate clojure/core/contracts/impl/transformers__init.class or 
-clojure/core/contracts/impl/transformers.clj on classpath:
-```
+| Could not locate clojure/core/contracts/impl/transformers__init.class or 
+| clojure/core/contracts/impl/transformers.clj on classpath:
 
 The only way to resolve - provede all necessary pom file. Re-run and, the
 actual problem shoud be shown:
 
-```
-Could not transfer artifact org.clojure:pom.contrib:pom:0.0.26 from/to 
-central (http://repo1.maven.org/maven2/): repo1.maven.org
-```
+| Could not transfer artifact org.clojure:pom.contrib:pom:0.0.26 from/to 
+| central (http://repo1.maven.org/maven2/): repo1.maven.org
 
 Copy from
 https://maven-us.nuxeo.org/nexus/content/groups/public/org/clojure/pom.contrib/0.0.26/pom.contrib-0.0.26.pom
-
 to
 ~/.m2/repository/org/clojure/pom.contrib/0.0.26/pom.contrib-0.0.26.pom
 
-```
-Could not transfer artifact org.sonatype.oss:oss-parent:pom:5 from/to 
-central (http://repo1.maven.org/maven2/): repo1.maven.org
-```
+| Could not transfer artifact org.sonatype.oss:oss-parent:pom:5 from/to 
+| central (http://repo1.maven.org/maven2/): repo1.maven.org
 
 http://repo1.maven.org/maven2/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
-
 ~/.m2/repository/org/sonatype/oss/oss-parent/5/oss-parent-5.pom
 
 

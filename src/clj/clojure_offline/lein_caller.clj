@@ -9,7 +9,7 @@
         leiningen.core.main
         [leiningen.core.project :only [default-repositories]]
         )
-  (:import java.io.StringWriter))
+  (:import (java.io StringWriter File)))
 
 (defn to-p-string [m] 
   (let [w (StringWriter.)] 
@@ -65,7 +65,7 @@ scope."
          ~(symbol "version") (nth artifact# 2)]
      ~@body))
 
-(defn get-jar-urls [artifact-name]
+(defn get-jar-urls [artifact-name extension]
   "Convert from leiningen's `artifact-name' to probably jar url location on
 clojars or maven central.
 E.g. convert from
@@ -77,7 +77,7 @@ to
     (let [art-path (str
                     (reduce #(str %1 "/" %2) (split group-id #"\.")) "/"
                     artifact-id "/" version "/"
-                    artifact-id "-" version ".jar")]
+                    artifact-id "-" version "." extension)]
       (reduce #(str %1 %2)
               (map #(str (-> % second :url) art-path "\n")
                    default-repositories)))))
@@ -97,6 +97,62 @@ to
          artifact-id "-" version ".jar "
          group-id "/" artifact-id " " version)))
 
+(defn get-path-tail [path]
+  ;; (.getName (File. "/home/kostafey/.emacs.d/solutions/"))
+  (let [path (.trim (.replaceAll path "\\\\" "/"))
+        path (if (= (.substring path (dec(count path))) "/") 
+               (.substring path 0 (dec(count path)))
+               path)
+        idx (.lastIndexOf path "/")
+        path-tail (if (>= idx 0) 
+                    (.substring path (inc idx))
+                    path)]
+    path-tail))
+
+(defn get-path-parent [path]
+  (.getParent (File. path)))
+
+(defn concat-path [& path-list]
+  (let [path-cons (fn [& path-list] 
+                    (loop [acc (File. (first path-list))
+                           pl (rest path-list)]                    
+                      (if (empty? pl)
+                        acc
+                        (recur (File. acc (first pl)) (rest pl)))
+                      ))]
+    (.getPath (apply path-cons path-list))))
+
+(def is-windows
+  "The value is true if it runs under the os Windows."
+  (<= 0 (.indexOf (System/getProperty "os.name") "Windows")))
+
+(defn get-m2-path [artifact-name]
+  (with-artifact
+    artifact-name
+    (let [home "%HOME%"
+               ;;(if (= (get-path-tail (System/getenv "HOME")) "Application Data")
+               ;;  (get-path-parent (System/getenv "HOME"))
+               ;;  (System/getenv "HOME"))
+          m2 (concat-path home ".m2" "repository")
+          sep (if is-windows "\\\\" "/")]
+      (concat-path m2
+                   (.replaceAll group-id "\\." sep)
+                   artifact-id 
+                   version "/"))))
+
+(defn get-artifact-file-name [artifact-name extension]
+  (with-artifact
+    artifact-name
+    (str artifact-id "-" version "." extension)))
+
+(defn get-copy-pom [artifact-name]
+  (with-artifact
+    artifact-name
+    (str "cp "
+         (get-artifact-file-name artifact-name "pom")
+         " "
+         (get-m2-path artifact-name))))
+
 (defn clj-off-get-script [artifacts-list]
   (let [deps (get-dependeces-list artifacts-list)]
     (str "\n<h2 style=\"text-align: center;\">Dependences list</h2>\n"
@@ -110,16 +166,20 @@ to
                 d deps]
            (if (empty? d) 
              acc
-             (recur (.append acc
-                             (join (map 
-                                    #(str "wget " % "<br>\n") 
-                                    (split (get-jar-urls (first d)) #"\n"))))
+             (recur (.append 
+                     acc
+                     (join (map 
+                            #(str "wget " % "<br>\n") 
+                            (concat 
+                             (split (get-jar-urls (first d) "jar") #"\n")
+                             (split (get-jar-urls (first d) "pom") #"\n")))))
                     (rest d))))
          "</div>"
          "<p>"
          "\n<h2 style=\"text-align: center;\">Install list</h2>\n"
          "<div style=\"margin-left: 50px; margin-bottom: 80px;\">"
          (join (map #(str % "<br>\n") (map get-localrepo-install deps)))
+         (join (map #(str % "<br>\n") (map get-copy-pom deps)))
          "</div>")))
 
 (comment

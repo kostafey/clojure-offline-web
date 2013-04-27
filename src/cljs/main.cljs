@@ -5,7 +5,10 @@
 
 (declare home 
          home-page 
-         gstarted-page
+         doc-gstart
+         doc-gstart-page
+         doc-docum
+         doc-docum-page
          doc-resources
          doc-resources-page)
 
@@ -23,7 +26,8 @@
 
 (em/defaction setup-pane [width height]
   ["#home-button"] (em/listen :click home-page)
-  ["#gstarted-button"] (em/listen :click #(gstarted-page width height))
+  ["#doc-gstart"] (em/listen :click #(doc-gstart-page width height))
+  ["#doc-docum"] (em/listen :click #(doc-docum-page width height))
   ["#doc-resources"] (em/listen :click #(doc-resources-page width height))
   )
 
@@ -31,34 +35,32 @@
     (let [size (dom/getViewportSize)
           width (- (.-width size) 40)
           height (- (.-height size) 70)]
-      (setup-pane (- width 10)  (- height 10))
-      ;; (setup-pane width height)
-      ))
-
-;; (em/deftemplate home "main.html" [])
+      (setup-pane (- width 10)  (- height 10))))
 
 (em/defaction home-page []
-  ["#searcher"] (em/content (searcher))
-  ["#caption"] (em/content "Clojure offline")
   ["#content-pane"] (em/chain
                      (em/content "")
                      (em/set-style :padding "0px")
                      (em/resize 0 0 500))
-  ["#searcher"] (em/fade-in 500 nil)
-  ["#caption"] (em/fade-in 500 nil))
+  ["#searcher"] (em/chain
+                 (em/content (searcher))
+                 (em/fade-in 500 nil))
+  ["#caption"] (em/chain
+                (em/content "Clojure offline")
+                (em/fade-in 500 nil)))
 
 (defn is-home []
   (= (em/from (em/select ["#caption"]) 
               (em/get-text)) ""))
 
-(em/deftemplate gstarted "/doc-help" [])
+(em/deftemplate doc-gstart "/doc-help" [])
 
-(em/defaction gstarted-page [width height]  
+(em/defaction doc-gstart-page [width height]  
   ["#content-pane"] (em/chain
                      (reset-scroll)
                      (em/resize width height (if (is-home) 0 500))
                      (em/set-style :padding "10px")
-                     (em/content (gstarted)))
+                     (em/content (doc-gstart)))
   ["#searcher"] (em/chain
                  (em/fade-out 500 nil)
                  (em/content ""))
@@ -81,12 +83,23 @@
                 (em/fade-out 500 nil)
                 (em/content "")))
 
+(em/deftemplate doc-docum "/doc-docum" [])
+
+(em/defaction doc-docum-page [width height]  
+  ["#content-pane"] (em/chain                    
+                     (reset-scroll)
+                     (em/resize width height (if (is-home) 0 500))
+                     (em/set-style :padding "10px")
+                     (em/content (doc-docum)))
+  ["#searcher"] (em/chain
+                 (em/fade-out 500 nil)
+                 (em/content ""))
+  ["#caption"] (em/chain
+                (em/fade-out 500 nil)
+                (em/content "")))
+
+
 (em/defaction start []
-  ;; (em/at js/document
-  ;;   ["#menu"] (em/content init-content-pane) ;(em/content "Hello world3!")
-  ;;   )
-  ;; ["body"] (em/do-> (init-content-pane))
-  ;; ["body"] (em/chain setup-pane)
   [".marea"] (em/listen 
               :mouseenter
               #(em/at (.-currentTarget %)
@@ -111,8 +124,7 @@
   ["#src-menu"] (em/listen 
               :mouseleave
               #(em/at (.-currentTarget %)
-                      [".sub"] (em/resize :curwidth 0 500)))
-  )
+                      [".sub"] (em/resize :curwidth 0 500))))
 
 (set! (.-onload js/window) ;start
       #(do (init-content-pane)

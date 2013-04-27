@@ -17,14 +17,11 @@
   )
 
 (defroutes app-routes
-  
-  ;; (GET "/" [] (resp/redirect "/html/main.html") ;(show-clojure-offline)
-  ;;      )
-  
   (GET "/" []  (show-clojure-offline))                   
   (POST "/find-artifacts" [artifact] (find-artifacts artifact))
   
   (GET "/doc-help" [] (view/get-doc-html))
+  (GET "/doc-docum" [] (view/get-doc-docum-html))
   (GET "/doc-resources" [] (view/get-doc-resources-html))
   
   (route/resources "/") 

@@ -27,8 +27,11 @@
   (get-html "public/html/main.html"))
 
 (defn get-doc-html []
-  (md-to-html-string (get-file "public/html/help.md")
+  (md-to-html-string (get-file "public/html/getting-started.md")
                      :code-style #(str "class=\"" % "\"")))
+
+(defn get-doc-docum-html []
+  (md-to-html-string (get-file "public/html/help.md")))
 
 (defn get-doc-resources-html []
   (md-to-html-string (get-file "public/html/resources.md")))
