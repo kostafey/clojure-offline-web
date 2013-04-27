@@ -49,19 +49,20 @@
   ;; [".iron-body"] (reset-scroll)
   ["#content-pane"] (em/chain
                      (em/content "")
+                     (em/set-style :padding "0px")
                      (em/resize 0 0 500))
-  ["#searcher"] (em/fade-in 500 nil)  
+  ["#searcher"] (em/fade-in 500 nil)
   ["#caption"] (em/fade-in 500 nil))
 
 ;; (em/deftemplate gstarted "getting-started.html" [])
 (em/deftemplate gstarted "/help" [])
 
 (em/defaction gstarted-page [width height]  
-  ["#content-pane"] (em/chain
-                     (em/content (gstarted))
+  ["#content-pane"] (em/chain                     
                      (reset-scroll)
-                     (em/resize 5 height 500)
-                     (em/resize width :curheight 500))
+                     (em/resize width height 500)
+                     (em/set-style :padding "10px")
+                     (em/content (gstarted)))
   ["#searcher"] (em/fade-out 500 nil)
   ["#caption"] (em/fade-out 500 nil))
 

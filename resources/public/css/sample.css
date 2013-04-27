@@ -6,8 +6,8 @@ font-family: sans-serif;
 }
 
 pre {
-background-color: #efefef;
-border: 1px solid #555;
+background-color: #555;
+border: 1px solid #666;
 padding: 10px;
 }
 
@@ -80,7 +80,9 @@ font-weight: bold;
 }
 
 #content-pane {
-background-color: #fff;
+/* text-align: left; */
+font-size: 15px;
+background-color: #444;
 width: 5px;
 height: 0px;
 position: fixed;
@@ -88,7 +90,7 @@ top: 50px;
 left: 20px;
 -moz-border-radius: 10px;
 border-radius: 10px;
-overflow: auto
+overflow: auto;
 }
 
 .content-page {
