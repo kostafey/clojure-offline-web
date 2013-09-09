@@ -169,7 +169,7 @@ to
              (recur (.append 
                      acc
                      (join (map 
-                            #(str "wget " % "<br>\n") 
+                            #(str "wget --no-check-certificate " % "<br>\n")
                             (concat 
                              (split (get-jar-urls (first d) "jar") #"\n")
                              (split (get-jar-urls (first d) "pom") #"\n")))))
