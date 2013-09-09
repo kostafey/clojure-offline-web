@@ -93,7 +93,7 @@ to
  lein localrepo install foo-1.0.6.jar com.example/foo 1.0.6"
   (with-artifact
     artifact-name
-    (str "lein localrepo install "
+    (str "start /B lein localrepo install "
          artifact-id "-" version ".jar "
          group-id "/" artifact-id " " version)))
 
@@ -135,10 +135,10 @@ to
                ;;  (System/getenv "HOME"))
           m2 (concat-path home ".m2" "repository")
           sep (if is-windows "\\\\" "/")]
-      (concat-path m2
+      (concat-path "'" m2
                    (.replaceAll group-id "\\." sep)
                    artifact-id 
-                   version "/"))))
+                   version "/'"))))
 
 (defn get-artifact-file-name [artifact-name extension]
   (with-artifact
